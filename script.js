@@ -183,7 +183,9 @@ function displayCheckContainer() {
 function clearQuestions() {
   questions = []
   localStorage.setItem('questions', JSON.stringify(questions))
-  location.reload(true)
+  questionDiv.innerText = 'No questions available'
+  answerButtons.innerText = ''
+  clearBodyStatus()
   hideCheckContainer()
   reset()
 }
