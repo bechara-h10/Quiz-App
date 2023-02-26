@@ -87,7 +87,9 @@ body.wrong {
 
 .start-btn,
 .next-btn {
-  padding: 30px 50px;
+  padding: 10px 30px;
+  font-size: 2rem;
+  font-weight: 700;
 }
 
 .hide {
@@ -214,8 +216,11 @@ input[type='text']:hover {
   bottom: 15%;
   padding: 10px 20px;
   border-radius: 5px;
-  transform: translateY(200%);
+  transform: translateY(1000%);
   transition: transform 500ms ease-in-out;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .yes-no-buttons {

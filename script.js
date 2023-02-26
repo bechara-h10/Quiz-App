@@ -163,7 +163,11 @@ function createQuestion() {
     reset()
     return
   }
-  errorContainer.innerText = 'No input should be empty'
+  if (questionInput.value == '' || !everyAnswerInputNotEmpty) {
+    errorContainer.innerText = 'No input should be empty'
+  } else if (!hasOneCheckedRadionButton) {
+    errorContainer.innerText = 'One correct answer must be selected'
+  }
   successContainer.classList.remove('show')
   errorContainer.classList.add('show')
 }
