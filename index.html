@@ -9,7 +9,50 @@
     <title>Quiz App</title>
   </head>
   <body>
+    <button class="add-question-btn btn">Add question</button>
     <div class="correct-answers"></div>
+    <div class="add-container">
+      <div class="add-question">
+        <label for="question">
+          Question:
+          <input type="text" id="question-input" name="question" />
+        </label>
+      </div>
+      <div class="add-answers">
+        <label for="answer">
+          Answer 1:
+          <input type="text" name="answer" id="answer-input" />
+          <div class="radio-button-div">
+            Correct:<input type="radio" name="answer" />
+          </div>
+        </label>
+        <label for="answer">
+          Answer 2:
+          <input type="text" name="answer" id="answer-input" />
+          <div class="radio-button-div">
+            Correct:<input type="radio" name="answer" />
+          </div>
+        </label>
+        <label for="answer">
+          Answer 3:
+          <input type="text" name="answer" id="answer-input" />
+          <div class="radio-button-div">
+            Correct:<input type="radio" name="answer" />
+          </div>
+        </label>
+        <label for="answer">
+          Answer 4:
+          <input type="text" name="answer" id="answer-input" />
+          <div class="radio-button-div">
+            Correct:<input type="radio" name="answer" />
+          </div>
+        </label>
+      </div>
+      <div class="add-container-buttons">
+        <button class="return-btn btn">Return</button>
+        <button class="add-btn btn">Add</button>
+      </div>
+    </div>
     <div class="container">
       <div class="question-container hide">
         <div class="question" data-question>Question</div>
@@ -23,6 +66,16 @@
       <div class="control-buttons">
         <button class="start-btn btn" id="start-btn">Start</button>
         <button class="next-btn btn hide" id="next-btn">Next</button>
+      </div>
+    </div>
+    <div class="error-container"></div>
+    <div class="success"></div>
+    <button class="clear-questions-btn btn">Clear Questions</button>
+    <div class="check-delete">
+      <div class="text">Are you sure you want to delete all questions</div>
+      <div class="yes-no-buttons">
+        <button class="yes-btn btn">Yes</button>
+        <button class="no-btn btn">No</button>
       </div>
     </div>
   </body>

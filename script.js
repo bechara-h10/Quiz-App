@@ -1,28 +1,4 @@
-const questions = [
-  {
-    question: 'What is 4 x 4?',
-    answers: [
-      { text: 16, correct: true },
-      { text: 8, correct: false },
-    ],
-  },
-  {
-    question: 'What is 2 x 2?',
-    answers: [
-      { text: 4, correct: true },
-      { text: 2, correct: false },
-    ],
-  },
-  {
-    question: 'Who will win the champions league?',
-    answers: [
-      { text: 'Real Madrid', correct: false },
-      { text: 'Bayern Munchen', correct: false },
-      { text: 'PSG', correct: true },
-      { text: 'Liverpool', correct: false },
-    ],
-  },
-]
+let questions = JSON.parse(localStorage.getItem('questions')) || []
 
 const startButton = document.getElementById('start-btn')
 const questionContainer = document.querySelector('.question-container')
@@ -30,12 +6,29 @@ const questionDiv = document.querySelector('[data-question]')
 const answerButtons = document.querySelector('.answer-buttons')
 const nextButton = document.getElementById('next-btn')
 const correctAnswersDiv = document.querySelector('.correct-answers')
-const totalQuestions = questions.length
+const addQuestionButton = document.querySelector('.add-question-btn')
+const addContainer = document.querySelector('.add-container')
+const returnButton = document.querySelector('.return-btn')
+const addButton = document.querySelector('.add-btn')
+const questionInput = document.getElementById('question-input')
+const answerInputs = document.querySelectorAll('#answer-input')
+const errorContainer = document.querySelector('.error-container')
+const successContainer = document.querySelector('.success')
+const clearQuestionsButton = document.querySelector('.clear-questions-btn')
+const checkContainer = document.querySelector('.check-delete')
+const noButton = document.querySelector('.no-btn')
+const yesButton = document.querySelector('.yes-btn')
+let totalQuestions
 let correctAnswers
 let shuffledQuestions, questionIndex
 startButton.addEventListener('click', startGame)
 nextButton.addEventListener('click', nextQuestion)
-
+addQuestionButton.addEventListener('click', displayAddContainer)
+returnButton.addEventListener('click', hideAddConainer)
+addButton.addEventListener('click', createQuestion)
+clearQuestionsButton.addEventListener('click', displayCheckContainer)
+noButton.addEventListener('click', hideCheckContainer)
+yesButton.addEventListener('click', clearQuestions)
 function startGame() {
   startButton.classList.add('hide')
   questionContainer.classList.remove('hide')
@@ -45,6 +38,7 @@ function startGame() {
   })
   questionIndex = 0
   correctAnswers = 0
+  totalQuestions = questions.length
   updateCorrectAnswers(correctAnswers)
   clearBodyStatus()
   setNextQuestion()
@@ -65,7 +59,7 @@ function displayQuestion(question) {
     if (answer.correct) {
       answerButton.dataset.correct = answer.correct
     }
-    answerButton.addEventListener('click', setCorrectStatus)
+    answerButton.addEventListener('click', setCorrectStatus, { once: true })
     answerButtons.appendChild(answerButton)
   })
 }
@@ -115,4 +109,91 @@ function clearBodyStatus() {
 
 function updateCorrectAnswers(correctAnswers) {
   correctAnswersDiv.innerText = `${correctAnswers}/${totalQuestions}`
+}
+
+function displayAddContainer() {
+  addContainer.style.transform = 'translateX(0)'
+}
+
+function hideAddConainer() {
+  addContainer.style.transform = 'translateX(-150%)'
+  successContainer.classList.remove('show')
+  errorContainer.classList.remove('show')
+}
+
+function createQuestion() {
+  const everyAnswerInputNotEmpty = [...answerInputs].every(
+    (input) => input.value !== ''
+  )
+  const hasOneCheckedRadionButton = [...answerInputs].some(
+    (answerInput) => answerInput.nextElementSibling.children[0].checked == true
+  )
+  if (
+    questionInput.value !== '' &&
+    everyAnswerInputNotEmpty &&
+    hasOneCheckedRadionButton
+  ) {
+    let questionObj = {
+      question: questionInput.value,
+      answers: [
+        {
+          text: answerInputs[0].value,
+          correct: answerInputs[0].nextElementSibling.children[0].checked,
+        },
+        {
+          text: answerInputs[1].value,
+          correct: answerInputs[1].nextElementSibling.children[0].checked,
+        },
+        {
+          text: answerInputs[2].value,
+          correct: answerInputs[2].nextElementSibling.children[0].checked,
+        },
+        {
+          text: answerInputs[3].value,
+          correct: answerInputs[3].nextElementSibling.children[0].checked,
+        },
+      ],
+    }
+    questions.push(questionObj)
+    clearInputs()
+    successContainer.innerText = 'Question added'
+    successContainer.classList.add('show')
+    errorContainer.classList.remove('show')
+    localStorage.setItem('questions', JSON.stringify(questions))
+    reset()
+    return
+  }
+  errorContainer.innerText = 'No input should be empty'
+  successContainer.classList.remove('show')
+  errorContainer.classList.add('show')
+}
+
+function clearInputs() {
+  questionInput.value = ''
+  answerInputs.forEach((input) => {
+    input.value = ''
+    input.nextElementSibling.children[0].checked = false
+  })
+}
+
+function displayCheckContainer() {
+  checkContainer.style.transform = 'translateY(0)'
+}
+
+function clearQuestions() {
+  questions = []
+  localStorage.setItem('questions', JSON.stringify(questions))
+  hideCheckContainer()
+  reset()
+}
+
+function hideCheckContainer() {
+  checkContainer.style.transform = 'translateY(200%)'
+}
+
+function reset() {
+  startButton.innerText = 'Start'
+  startButton.classList.remove('hide')
+  questionContainer.classList.add('hide')
+  correctAnswersDiv.innerText = ''
 }
