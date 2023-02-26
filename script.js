@@ -183,7 +183,7 @@ function displayCheckContainer() {
 function clearQuestions() {
   questions = []
   localStorage.setItem('questions', JSON.stringify(questions))
-  location.reload()
+  location.reload(true)
   hideCheckContainer()
   reset()
 }
