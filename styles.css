@@ -1,0 +1,94 @@
+@import url('https://fonts.googleapis.com/css2?family=Golos+Text:wght@400;700&display=swap');
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+:root {
+  --hue-neutral: 200;
+  --hue-correct: 145;
+  --hue-wrong: 0;
+}
+
+body {
+  --hue: var(--hue-neutral);
+  margin: 0;
+  padding: 0;
+  width: 100vw;
+  height: 100vh;
+  font-family: 'Golos Text', sans-serif;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: hsl(var(--hue), 100%, 20%);
+}
+
+body.correct {
+  --hue: var(--hue-correct);
+}
+
+body.wrong {
+  --hue: var(--hue-wrong);
+}
+
+.container {
+  width: 800px;
+  max-width: 80%;
+  background-color: white;
+  padding: 10px 20px;
+  border-radius: 5px;
+  box-shadow: 0 0 10px 1px;
+}
+
+.question {
+  font-size: 1.2rem;
+  font-weight: 700;
+}
+
+.answer-buttons {
+  display: grid;
+  grid-template-columns: repeat(2, auto);
+  gap: 10px;
+  margin: 10px 0;
+}
+
+.btn {
+  --hue: var(--hue-neutral);
+  background-color: hsl(var(--hue), 100%, 50%);
+  border: solid 1px hsl(var(--hue), 100%, 20%);
+  padding: 10px 20px;
+  border-radius: 5px;
+  color: white;
+  font-size: 1.2rem;
+  cursor: pointer;
+}
+
+.btn:hover {
+  border-color: black;
+}
+
+.btn.correct {
+  --hue: var(--hue-correct);
+  color: black;
+}
+
+.btn.wrong {
+  --hue: var(--hue-wrong);
+}
+
+.control-buttons {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.start-btn,
+.next-btn {
+  padding: 30px 50px;
+}
+
+.hide {
+  display: none;
+}
