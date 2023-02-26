@@ -183,6 +183,7 @@ function displayCheckContainer() {
 function clearQuestions() {
   questions = []
   localStorage.setItem('questions', JSON.stringify(questions))
+  location.reload()
   hideCheckContainer()
   reset()
 }
@@ -195,5 +196,5 @@ function reset() {
   startButton.innerText = 'Start'
   startButton.classList.remove('hide')
   questionContainer.classList.add('hide')
-  correctAnswersDiv.innerText = ''
+  correctAnswersDiv.innerText = 'Score'
 }
